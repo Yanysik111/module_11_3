@@ -1,6 +1,3 @@
-
-
-
 def introspection_info(obj):
     # Получение типа объекта
     type_of_object = type(obj)
@@ -22,11 +19,11 @@ def introspection_info(obj):
         "complex": lambda c: str(c),
         "list": lambda l: f"[{','.join(map(str, l))}]",
         "tuple": lambda t: f"({','.join(map(str, t))})",
-        "dict": lambda d: f"{{{','.join(': '.join((k, v)) for k, v in d.items())}}}"
+        "dict": lambda d: f"{{{','.join(': '.join((repr(k), repr(v))) for k, v in d.items())}}}"
     }
 
     try:
-        additional_info[type(obj)](obj)
+        additional_info[type(obj).__name__](obj)
     except KeyError:
         pass
 
@@ -42,5 +39,8 @@ def introspection_info(obj):
 # Пример использования
 number_info = introspection_info(42)
 print(number_info)
+
+
+
 
 
